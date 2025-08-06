@@ -1,10 +1,3 @@
 # [Backstage](https://backstage.io)
 
-This is your newly scaffolded Backstage App, Good Luck!
-
-To start the app, run:
-
-```sh
-yarn install
-yarn start
-```
+Backstage monorepo featuring an **Onboarding Plugin** that generates AI-powered onboarding guides for catalog services.
