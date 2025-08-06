@@ -1,16 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { TextField, Grid, Button, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const pokemonNames = [
-  'pikachu',
-  'bulbasaur',
-  'charmander',
-  'squirtle',
-  'gengar',
-  'lucario',
-  'dragonite',
-  // Load from API
+type PokemonOption = {
+  name: string;
+  image: string;
+};
+
+const pokemonOptions: PokemonOption[] = [
+  {
+    name: 'pikachu',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+  },
+  {
+    name: 'bulbasaur',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+  },
+  {
+    name: 'charmander',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
+  },
+  {
+    name: 'squirtle',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png',
+  },
+  {
+    name: 'gengar',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png',
+  },
+  {
+    name: 'lucario',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png',
+  },
+  {
+    name: 'dragonite',
+    image:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png',
+  },
 ];
 
 const fetchPokemonTypes = async (name: string): Promise<string[]> => {
@@ -20,7 +52,7 @@ const fetchPokemonTypes = async (name: string): Promise<string[]> => {
 };
 
 export const ExampleFetchComponent = () => {
-  const [team, setTeam] = useState<(string | null)[]>([
+  const [team, setTeam] = useState<(PokemonOption | null)[]>([
     null,
     null,
     null,
@@ -30,7 +62,7 @@ export const ExampleFetchComponent = () => {
   ]);
   const [typeCounts, setTypeCounts] = useState<Record<string, number>>({});
 
-  const handleChange = (index: number, value: string | null) => {
+  const handleChange = (index: number, value: PokemonOption | null) => {
     const newTeam = [...team];
     newTeam[index] = value;
     setTeam(newTeam);
@@ -39,13 +71,13 @@ export const ExampleFetchComponent = () => {
   const analyzeTypes = async () => {
     const allTypes: string[] = [];
 
-    for (const name of team) {
-      if (!name) continue;
+    for (const member of team) {
+      if (!member) continue;
       try {
-        const types = await fetchPokemonTypes(name.toLowerCase());
+        const types = await fetchPokemonTypes(member.name.toLowerCase());
         allTypes.push(...types);
       } catch (err) {
-        console.error(`Error loading ${name}:`, err);
+        console.error(`Error loading ${member.name}:`, err);
       }
     }
 
@@ -59,28 +91,63 @@ export const ExampleFetchComponent = () => {
 
   return (
     <Grid container spacing={2} direction="column">
-      <Typography variant="h6">Create your Pokemon Team</Typography>
+      <Typography variant="h6">Create your Pokémon Team</Typography>
+
       {team.map((member, idx) => (
         <Grid item key={idx}>
           <Autocomplete
-            options={pokemonNames}
-            value={member}
+            options={pokemonOptions}
+            getOptionLabel={option => option.name}
+            value={team[idx]}
             onChange={(_, value) => handleChange(idx, value)}
+            renderOption={option => (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img
+                  src={option.image}
+                  alt={option.name}
+                  width={32}
+                  height={32}
+                  style={{ marginRight: 8 }}
+                />
+                {option.name}
+              </div>
+            )}
             renderInput={params => (
               <TextField {...params} label={`Slot ${idx + 1}`} />
             )}
           />
         </Grid>
       ))}
+
       <Grid item>
         <Button variant="contained" color="primary" onClick={analyzeTypes}>
           Analyse Types
         </Button>
       </Grid>
+
+      <Grid item>
+        <Typography variant="h6">Your Team:</Typography>
+        <Grid container spacing={1}>
+          {team.map((member, idx) =>
+            member ? (
+              <Grid item key={idx}>
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  width={64}
+                  height={64}
+                  title={member.name}
+                />
+              </Grid>
+            ) : null,
+          )}
+        </Grid>
+      </Grid>
+
       <Grid item>
         <Typography variant="h6">Type Coverage:</Typography>
         {Object.entries(typeCounts).length === 0 ? (
-          <Typography variant="body2">No Analysis done yet</Typography>
+          <Typography variant="body2">No analysis done yet.</Typography>
         ) : (
           Object.entries(typeCounts).map(([type, count]) => (
             <Typography key={type}>
