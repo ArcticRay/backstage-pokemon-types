@@ -1,49 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-
-type PokemonOption = {
-  name: string;
-  image: string;
-};
-
-const pokemonOptions: PokemonOption[] = [
-  {
-    name: 'pikachu',
-    image:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
-  },
-  {
-    name: 'bulbasaur',
-    image:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-  },
-  {
-    name: 'charmander',
-    image:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
-  },
-  {
-    name: 'squirtle',
-    image:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png',
-  },
-  {
-    name: 'gengar',
-    image:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png',
-  },
-  {
-    name: 'lucario',
-    image:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png',
-  },
-  {
-    name: 'dragonite',
-    image:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png',
-  },
-];
+import { pokemonOptions, PokemonOption } from '../../data/pokemonOptions';
 
 const fetchPokemonTypes = async (name: string): Promise<string[]> => {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
