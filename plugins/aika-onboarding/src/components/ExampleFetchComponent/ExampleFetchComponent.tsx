@@ -3,10 +3,19 @@ import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { pokemonOptions, PokemonOption } from '../../data/pokemonOptions';
 
+const typeCache: Record<string, string[]> = {};
+
 const fetchPokemonTypes = async (name: string): Promise<string[]> => {
+  if (typeCache[name]) {
+    return typeCache[name];
+  }
+
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
   const data = await res.json();
-  return data.types.map((t: any) => t.type.name);
+  const types = data.types.map((t: any) => t.type.name);
+
+  typeCache[name] = types;
+  return types;
 };
 
 export const ExampleFetchComponent = () => {
