@@ -1,0 +1,15 @@
+image: gitpod/workspace-node:18
+
+ports:
+  - port: 3000
+    onOpen: ignore
+  - port: 7007
+    onOpen: ignore
+
+tasks:
+  - name: Install
+    init: yarn install --frozen-lockfile
+  - name: Dev
+    command: yarn dev
+  - name: Open UI
+    command: gp await-port 3000 && gp preview "$(gp url 3000)/aika-onboarding"
