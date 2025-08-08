@@ -1,5 +1,3 @@
-image: ghcr.io/gitpod-io/workspace-full:latest
-
 ports:
   - port: 3000
     onOpen: ignore
@@ -9,11 +7,14 @@ ports:
 tasks:
   - name: Install
     init: |
+      source ~/.bashrc || true
+      nvm install 18
       nvm use 18
       corepack enable
       yarn install --frozen-lockfile
   - name: Dev
     command: |
+      source ~/.bashrc || true
       nvm use 18
       yarn dev
   - name: Open UI
