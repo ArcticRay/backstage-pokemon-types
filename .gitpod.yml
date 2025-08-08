@@ -1,4 +1,4 @@
-image: ghcr.io/gitpod-io/workspace-node:18
+image: ghcr.io/gitpod-io/workspace-full:latest
 
 ports:
   - port: 3000
@@ -8,8 +8,13 @@ ports:
 
 tasks:
   - name: Install
-    init: yarn install --frozen-lockfile
+    init: |
+      nvm use 18
+      corepack enable
+      yarn install --frozen-lockfile
   - name: Dev
-    command: yarn dev
+    command: |
+      nvm use 18
+      yarn dev
   - name: Open UI
     command: gp await-port 3000 && gp preview "$(gp url 3000)/aika-onboarding"
