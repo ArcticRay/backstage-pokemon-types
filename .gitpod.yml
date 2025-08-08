@@ -1,4 +1,4 @@
-image: gitpod/workspace-node:18
+image: ghcr.io/gitpod-io/workspace-node:18
 
 ports:
   - port: 3000
