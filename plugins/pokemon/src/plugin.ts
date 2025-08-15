@@ -5,16 +5,16 @@ import {
 
 import { rootRouteRef } from './routes';
 
-export const aikaOnboardingPlugin = createPlugin({
-  id: 'aika-onboarding',
+export const pokemonPlugin = createPlugin({
+  id: 'pokemon',
   routes: {
     root: rootRouteRef,
   },
 });
 
-export const AikaOnboardingPage = aikaOnboardingPlugin.provide(
+export const PokemonPage = pokemonPlugin.provide(
   createRoutableExtension({
-    name: 'AikaOnboardingPage',
+    name: 'PokemonPage',
     component: () =>
       import('./components/ExampleComponent').then(m => m.ExampleComponent),
     mountPoint: rootRouteRef,

@@ -6593,9 +6593,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@internal/plugin-aika-onboarding@workspace:^, @internal/plugin-aika-onboarding@workspace:plugins/aika-onboarding":
+"@internal/plugin-pokemon@workspace:^, @internal/plugin-pokemon@workspace:plugins/pokemon":
   version: 0.0.0-use.local
-  resolution: "@internal/plugin-aika-onboarding@workspace:plugins/aika-onboarding"
+  resolution: "@internal/plugin-pokemon@workspace:plugins/pokemon"
   dependencies:
     "@backstage/cli": "npm:^0.33.1"
     "@backstage/core-app-api": "npm:^1.18.0"
@@ -15560,7 +15560,7 @@ __metadata:
     "@backstage/test-utils": "npm:^1.7.10"
     "@backstage/theme": "npm:^0.6.7"
     "@backstage/ui": "npm:^0.6.0"
-    "@internal/plugin-aika-onboarding": "workspace:^"
+    "@internal/plugin-pokemon": "workspace:^"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@playwright/test": "npm:^1.32.3"

@@ -35,7 +35,7 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
-import { AikaOnboardingPage } from '@internal/plugin-aika-onboarding';
+import { PokemonPage } from '@internal/plugin-pokemon';
 
 const app = createApp({
   apis,
@@ -95,7 +95,12 @@ const routes = (
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
-    <Route path="/aika-onboarding" element={<AikaOnboardingPage />} />
+    <Route path="/pokemon" element={<PokemonPage />} />+{' '}
+    {/* Redirect old URL */}+{' '}
+    <Route
+      path="/aika-onboarding"
+      element={<Navigate to="/pokemon" replace />}
+    />
   </FlatRoutes>
 );
 
